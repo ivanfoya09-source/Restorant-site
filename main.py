@@ -283,8 +283,8 @@ with app.app_context():
     if not Menu.query.first():
         items = [
             Menu(name="Піца Маргарита", price=180, picture="images/pizza.jpg", category="pizza"),
-            Menu(name="Піца Пепероні", price=210, picture="images/pizza.jpg", category="pizza"),
-            Menu(name="Піца 4 сири", price=230, picture="images/pizza.jpg", category="pizza"),
+            Menu(name="Піца Пепероні", price=210, picture="images/pizza1.jpg", category="pizza"),
+            Menu(name="Піца 4 сири", price=230, picture="images/pizza2.jpg", category="pizza"),
         ]
 
         db.session.add_all(items)
