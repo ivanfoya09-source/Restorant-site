@@ -28,36 +28,43 @@
 
 <div class="layout">
 
+    <!-- SIDEBAR -->
     <aside class="sidebar">
         <h2>Категорії</h2>
 
         <a href="{{ url_for('index') }}"
            class="{% if not category %}active{% endif %}">
-            🍽 Все
+            🍽 Все меню
         </a>
 
         <a href="{{ url_for('index', category='pizza') }}"
            class="{% if category == 'pizza' %}active{% endif %}">
+            🍕 Піца
         </a>
 
         <a href="{{ url_for('index', category='burger') }}"
            class="{% if category == 'burger' %}active{% endif %}">
+            🍔 Бургери
         </a>
 
         <a href="{{ url_for('index', category='salad') }}"
            class="{% if category == 'salad' %}active{% endif %}">
+            🥗 Салати
         </a>
 
         <a href="{{ url_for('index', category='snack') }}"
            class="{% if category == 'snack' %}active{% endif %}">
+            🍟 Закуски
         </a>
 
         <a href="{{ url_for('index', category='drink') }}"
            class="{% if category == 'drink' %}active{% endif %}">
+            🥤 Напої
         </a>
 
     </aside>
 
+    <!-- MENU -->
     <main class="menu">
 
         {% for item in menu %}
