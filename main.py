@@ -209,33 +209,25 @@ with app.app_context():
 
     if not Menu.query.first():
         items = [
-            # 🍕 ПІЦА
             Menu(name="Піца Маргарита", price=180, picture="images/pizza.jpg", category="pizza"),
             Menu(name="Піца Пепероні", price=210, picture="images/pizza.jpg", category="pizza"),
             Menu(name="Піца 4 сири", price=230, picture="images/pizza.jpg", category="pizza"),
-
-            # 🍔 БУРГЕРИ
             Menu(name="Класичний бургер", price=150, picture="images/burger.jpg", category="burger"),
             Menu(name="Чізбургер", price=170, picture="images/burger.jpg", category="burger"),
             Menu(name="Дабл бургер", price=220, picture="images/burger.jpg", category="burger"),
 
-            # 🥗 САЛАТИ
             Menu(name="Салат Цезар", price=120, picture="images/salad.jpg", category="salad"),
             Menu(name="Грецький салат", price=110, picture="images/salad.jpg", category="salad"),
 
-            # 🍝 ПАСТА
             Menu(name="Паста Карбонара", price=190, picture="images/pasta.jpg", category="pasta"),
             Menu(name="Паста Болоньєзе", price=200, picture="images/pasta.jpg", category="pasta"),
 
-            # 🍜 СУПИ
             Menu(name="Борщ", price=90, picture="images/soup.jpg", category="soup"),
             Menu(name="Крем-суп грибний", price=100, picture="images/soup.jpg", category="soup"),
 
-            # 🍟 ЗАКУСКИ
             Menu(name="Картопля фрі", price=80, picture="images/fries.jpg", category="snack"),
             Menu(name="Нагетси", price=120, picture="images/nuggets.jpg", category="snack"),
 
-            # 🥤 НАПОЇ
             Menu(name="Кола", price=50, picture="images/drink.jpg", category="drink"),
             Menu(name="Сік апельсиновий", price=60, picture="images/drink.jpg", category="drink"),
             Menu(name="Вода", price=30, picture="images/drink.jpg", category="drink"),
