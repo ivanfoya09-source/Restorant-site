@@ -72,9 +72,9 @@ nav a:hover {
 
 .food-img {
     width: 100%;
-    height: 200px; /* 👈 однакова висота */
-    object-fit: cover; /* обрізає красиво */
-    object-position: center; /* центр картинки */
+    height: 200px; 
+    object-fit: cover; 
+    object-position: center; 
     border-bottom: 1px solid #1e293b;
 }
 
