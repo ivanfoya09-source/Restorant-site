@@ -4,6 +4,7 @@ from wtforms.validators import DataRequired, Length
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, Optional
 from wtforms import HiddenField
+from wtforms.fields import DateTimeLocalField
 
 
 class SignInForm(FlaskForm):
@@ -18,7 +19,6 @@ class SignUpForm(FlaskForm):
     fullname = StringField(validators=[Optional()])
     submit = SubmitField("Реєстрація")
 
-from wtforms.fields import DateTimeLocalField
 
 class ReservationForm(FlaskForm):
     time = DateTimeLocalField(format='%Y-%m-%dT%H:%M')

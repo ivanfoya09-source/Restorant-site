@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 
-from flask import Flask, flash, render_template, redirect, request, url_for
+from flask import Flask, flash, render_template, redirect, request, url_for, abort, session
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_caching import Cache
 
@@ -128,8 +128,6 @@ def reserve():
 
     return render_template("reserve.html", form=form, menu=menu)
 
-
-from flask import session
 
 @app.get("/add_to_cart/<menu_id>")
 @login_required
@@ -290,8 +288,6 @@ with app.app_context():
         db.session.add_all(items)
         db.session.commit()
 
-
-from flask import abort
 
 def admin_required():
     if not current_user.is_authenticated or not current_user.is_admin:
