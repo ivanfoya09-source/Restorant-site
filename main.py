@@ -210,27 +210,27 @@ with app.app_context():
     if not Menu.query.first():
         items = [
             Menu(name="Піца Маргарита", price=180, picture="images/pizza.jpg", category="pizza"),
-            Menu(name="Піца Пепероні", price=210, picture="images/pizza.jpg", category="pizza1"),
-            Menu(name="Піца 4 сири", price=230, picture="images/pizza.jpg", category="pizza2"),
+            Menu(name="Піца Пепероні", price=210, picture="images/pizza1.jpg", category="pizza"),
+            Menu(name="Піца 4 сири", price=230, picture="images/pizza2.jpg", category="pizza"),
 
             Menu(name="Класичний бургер", price=150, picture="images/burger.jpg", category="burger"),
-            Menu(name="Чізбургер", price=170, picture="images/burger.jpg", category="burger1"),
-            Menu(name="Дабл бургер", price=220, picture="images/burger.jpg", category="burger2"),
+            Menu(name="Чізбургер", price=170, picture="images/burger1.jpg", category="burger"),
+            Menu(name="Дабл бургер", price=220, picture="images/burger2.jpg", category="burger"),
 
-            Menu(name="Салат Цезар", price=120, picture="images/salad.jpg", category="salad1"),
+            Menu(name="Салат Цезар", price=120, picture="images/salad1.jpg", category="salad"),
             Menu(name="Грецький салат", price=110, picture="images/salad.jpg", category="salad"),
 
-            Menu(name="Паста Карбонара", price=190, picture="images/pasta.jpg", category="pasta1"),
+            Menu(name="Паста Карбонара", price=190, picture="images/pasta1.jpg", category="pasta"),
             Menu(name="Паста Болоньєзе", price=200, picture="images/pasta.jpg", category="pasta"),
 
             Menu(name="Борщ", price=90, picture="images/soup.jpg", category="soup"),
-            Menu(name="Крем-суп грибний", price=100, picture="images/soup.jpg", category="soup1"),
+            Menu(name="Крем-суп грибний", price=100, picture="images/soup1.jpg", category="soup"),
 
             Menu(name="Картопля фрі", price=80, picture="images/fries.jpg", category="snack"),
-            Menu(name="Нагетси", price=120, picture="images/nuggets.jpg", category="snack1"),
+            Menu(name="Нагетси", price=120, picture="images/nuggets.jpg", category="snack"),
 
-            Menu(name="Кола", price=50, picture="images/drink.jpg", category="drink1"),
-            Menu(name="Сік апельсиновий", price=60, picture="images/drink.jpg", category="drink2"),
+            Menu(name="Кола", price=50, picture="images/drink1.jpg", category="drink"),
+            Menu(name="Сік апельсиновий", price=60, picture="images/drink2.jpg", category="drink"),
             Menu(name="Вода", price=30, picture="images/drink.jpg", category="drink"),
         ]
 
