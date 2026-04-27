@@ -8,7 +8,6 @@
 <body>
 
 <div class="topbar">
-
     <div class="auth-buttons">
         {% if current_user.is_authenticated %}
             <a href="{{ url_for('cart') }}">🛒 Кошик</a>
@@ -17,7 +16,6 @@
             <a href="{{ url_for('sign_in') }}">🔑 Увійти</a>
         {% endif %}
     </div>
-
 </div>
 
 {% with messages = get_flashed_messages() %}
@@ -31,7 +29,6 @@
 <div class="layout">
 
     <aside class="sidebar">
-
         <h2>Категорії</h2>
 
         <a href="{{ url_for('index') }}"
@@ -41,17 +38,22 @@
 
         <a href="{{ url_for('index', category='pizza') }}"
            class="{% if category == 'pizza' %}active{% endif %}">
-            🍕 Піца
         </a>
 
         <a href="{{ url_for('index', category='burger') }}"
            class="{% if category == 'burger' %}active{% endif %}">
-            🍔 Бургери
         </a>
 
         <a href="{{ url_for('index', category='salad') }}"
            class="{% if category == 'salad' %}active{% endif %}">
-            🥗 Салати
+        </a>
+
+        <a href="{{ url_for('index', category='snack') }}"
+           class="{% if category == 'snack' %}active{% endif %}">
+        </a>
+
+        <a href="{{ url_for('index', category='drink') }}"
+           class="{% if category == 'drink' %}active{% endif %}">
         </a>
 
     </aside>
@@ -77,16 +79,14 @@
                 {% if current_user.is_authenticated and current_user.is_admin %}
                     <div class="admin-actions">
                         <a href="{{ url_for('delete_menu', menu_id=item.id) }}"
-                           class="btn-danger">
-                            ❌ Видалити
+                           class="btn-danger">❌ Видалити</a>
+
+                        <a href="{{ url_for('add_menu') }}" class="btn">
+                            ➕ Додати страву
                         </a>
-                 {% if current_user.is_authenticated and current_user.is_admin %}
-                    <a href="{{ url_for('add_menu') }}" class="btn">
-                        ➕ Додати страву
-                    </a>
-                {% endif %}       
                     </div>
                 {% endif %}
+
             </div>
 
         </div>
