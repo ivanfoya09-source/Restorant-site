@@ -280,7 +280,6 @@ with app.app_context():
         db.session.add(admin)
         db.session.commit()
 
-    # меню
     if not Menu.query.first():
         items = [
             Menu(name="Піца Маргарита", price=180, picture="images/pizza.jpg", category="pizza"),
