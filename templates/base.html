@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+{% include "navigation.html" %}
+
+<div class="container">
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <p class="flash">{{ msg }}</p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+{% block content %}{% endblock %}
+
+</div>
+
+</body>
+</html>

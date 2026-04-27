@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="admin-form">
+
+    <h2>➕ Додати страву</h2>
+
+    <form method="POST">
+
+        <p>Назва</p>
+        <input name="name" required>
+
+        <p>Ціна</p>
+        <input name="price" type="number" required>
+
+        <p>Категорія</p>
+        <input name="category" placeholder="pizza, burger..." required>
+
+        <p>Картинка (шлях)</p>
+        <input name="picture" placeholder="images/pizza.jpg" required>
+
+        <button class="btn">Додати</button>
+
+    </form>
+
+</div>
+
+{% endblock %}

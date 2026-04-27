@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Кошик</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav>
+    <a href="/">Меню</a>
+    <a href="/cart">Кошик</a>
+    <a href="/logout">Вийти</a>
+</nav>
+
+<div class="cart-container">
+
+    <h2 class="cart-title">🛒 Ваш кошик</h2>
+
+    {% if items %}
+
+        {% set total = namespace(value=0) %}
+
+        {% for item, qty in items %}
+            {% set total.value = total.value + (item.price * qty) %}
+
+            <div class="cart-item">
+
+                <div>
+                    <div class="cart-item-name">{{ item.name }}</div>
+                    <div class="cart-item-price">{{ item.price }} грн</div>
+                </div>
+
+                <div class="cart-qty">x{{ qty }}</div>
+
+                <div>
+                    <a href="/remove_from_cart/{{ item.id }}">➖</a>
+                    <a href="/add_to_cart/{{ item.id }}">➕</a>
+                </div>
+
+            </div>
+        {% endfor %}
+
+        <div class="cart-total">
+    💰 Загальна сума: <b>{{ total.value }} грн</b>
+
+    <div class="cart-buttons">
+        <a href="{{ url_for('index') }}" class="btn-secondary">
+            ➕ Додати ще товар
+        </a>
+
+        <a href="{{ url_for('create_order') }}" class="btn-order">
+            Оформити замовлення
+        </a>
+    </div>
+</div>
+
+    {% else %}
+
+        <div class="cart-total">
+            🛒 Кошик порожній
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

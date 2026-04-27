@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    <h2>Реєстрація</h2>
+
+    <p>Логін</p>
+    {{ form.username }}
+
+    <p>Пароль</p>
+    {{ form.password }}
+
+    <p>Email</p>
+    {{ form.email }}
+
+    <p>Ім’я</p>
+    {{ form.fullname }}
+
+    {{ form.submit(class="btn") }}
+
+</form>
+
+{% endblock %}
