@@ -196,3 +196,20 @@ nav button:hover {
     background: #3b82f6;
     transform: scale(1.05);
 }
+
+.nav-right .btn {
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: #1e293b;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.nav-right .btn:hover {
+    background: #3b82f6;
+    transform: scale(1.1);
+}
