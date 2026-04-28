@@ -119,7 +119,7 @@ def reserve():
         db.session.commit()
         cache.clear()
 
-        flash("Стіл заброньовано.")
+        flash("✅ Столик успішно заброньовано!")
         return redirect(url_for("index"))
 
     return render_template("reserve.html", form=form)
