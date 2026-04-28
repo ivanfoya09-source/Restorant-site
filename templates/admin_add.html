@@ -4,25 +4,56 @@
 
 <div class="admin-form">
 
+```
+{% if item %}
+    <h2>✏️ Редагувати страву</h2>
+{% else %}
     <h2>➕ Додати страву</h2>
+{% endif %}
 
-    <form method="POST">
+<form method="POST">
 
-        <p>Назва</p>
-        <input name="name" required>
+    <p>Назва</p>
+    <input 
+        name="name" 
+        value="{{ item.name if item else '' }}" 
+        required
+    >
 
-        <p>Ціна</p>
-        <input name="price" type="number" required>
+    <p>Ціна</p>
+    <input 
+        name="price" 
+        type="number" 
+        step="0.01"
+        value="{{ item.price if item else '' }}" 
+        required
+    >
 
-        <p>Категорія</p>
-        <input name="category" placeholder="pizza, burger..." required>
+    <p>Категорія</p>
+    <input 
+        name="category" 
+        placeholder="pizza, burger..." 
+        value="{{ item.category if item else '' }}" 
+        required
+    >
 
-        <p>Картинка (шлях)</p>
-        <input name="picture" placeholder="images/pizza.jpg" required>
+    <p>Картинка (шлях)</p>
+    <input 
+        name="picture" 
+        placeholder="images/pizza.jpg" 
+        value="{{ item.picture if item else '' }}" 
+        required
+    >
 
-        <button class="btn">Додати</button>
+    <button class="btn">
+        {% if item %}
+            💾 Зберегти зміни
+        {% else %}
+            ➕ Додати
+        {% endif %}
+    </button>
 
-    </form>
+</form>
 
 </div>
 

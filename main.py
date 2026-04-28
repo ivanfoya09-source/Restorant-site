@@ -221,7 +221,31 @@ def add_menu():
         flash("Страву додано ✔")
         return redirect(url_for("index"))
 
-    return render_template("admin_add.html")
+    return render_template("admin_add.html", item=None)
+
+
+@app.route("/admin/edit_menu/<menu_id>", methods=["GET", "POST"])
+@login_required
+def edit_menu(menu_id):
+    admin_required()
+
+    item = db.session.get(Menu, menu_id)
+
+    if not item:
+        flash("Страву не знайдено")
+        return redirect(url_for("index"))
+
+    if request.method == "POST":
+        item.name = request.form.get("name")
+        item.price = float(request.form.get("price"))
+        item.category = request.form.get("category")
+        item.picture = request.form.get("picture")
+
+        db.session.commit()
+        flash("Страву оновлено ✔")
+        return redirect(url_for("index"))
+
+    return render_template("admin_add.html", item=item)
 
 
 with app.app_context():
