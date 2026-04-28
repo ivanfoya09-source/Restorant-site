@@ -1,26 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="uk">
 <head>
+    <meta charset="UTF-8">
     <title>Restaurant</title>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
 {% include "navigation.html" %}
 
-<div class="container">
-
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        {% for msg in messages %}
-            <p class="flash">{{ msg }}</p>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
-
-{% block content %}{% endblock %}
-
+<div class="flash-container">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <div class="flash">{{ msg }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 </div>
+
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+<script>
+    setTimeout(() => {
+        document.querySelectorAll('.flash').forEach(el => {
+            el.classList.add('hide');
+            setTimeout(() => el.remove(), 400);
+        });
+    }, 3000);
+</script>
 
 </body>
 </html>
