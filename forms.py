@@ -21,6 +21,6 @@ class SignUpForm(FlaskForm):
 
 
 class ReservationForm(FlaskForm):
-    time = DateTimeLocalField(format='%Y-%m-%dT%H:%M')
+    time = DateTimeLocalField(format='%Y-%m-%dT%H:%M',validators=[DataRequired()])
     table = HiddenField(validators=[DataRequired()])
     submit = SubmitField("Забронювати")

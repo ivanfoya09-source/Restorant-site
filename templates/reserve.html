@@ -10,7 +10,7 @@
         {{ form.hidden_tag() }}
 
         <p>Дата і час</p>
-        {{ form.time(type="datetime-local") }}
+        {{ form.time(type="datetime-local", required=True) }}
 
         {{ form.table(id="table-input") }}
 
@@ -26,20 +26,39 @@
 
         <p id="selected-table-text">Не обрано</p>
 
-        {{ form.submit(class="btn") }}
+        <button type="submit" class="btn">Забронювати</button>
     </form>
 
 </div>
 
 <script>
 function selectTable(id, el) {
-    document.getElementById("table-input").value = id;
+    const input = document.getElementById("table-input");
+
+    input.value = id;
 
     document.querySelectorAll(".table").forEach(t => t.classList.remove("active"));
     el.classList.add("active");
 
     document.getElementById("selected-table-text").innerText = "Обрано столик №" + id;
 }
+
+document.querySelector("form").addEventListener("submit", function(e) {
+    const time = document.querySelector("input[type='datetime-local']").value;
+    const table = document.getElementById("table-input").value;
+
+    if (!time) {
+        alert("Оберіть дату і час!");
+        e.preventDefault();
+        return;
+    }
+
+    if (!table) {
+        alert("Оберіть столик!");
+        e.preventDefault();
+        return;
+    }
+});
 </script>
 
 {% endblock %}
