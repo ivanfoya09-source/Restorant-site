@@ -8,17 +8,15 @@ from flask_caching import Cache
 from models import db, User, Menu, Reservation, Order, OrderItem
 from forms import SignUpForm, SignInForm, ReservationForm
 
+
 load_dotenv()
 
 app = Flask(__name__)
-
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-if not app.config["SQLALCHEMY_DATABASE_URI"]:
-    raise RuntimeError(" Немає SQLALCHEMY_DATABASE_URI")
 
 db.init_app(app)
 
@@ -31,13 +29,14 @@ cache = Cache(app, config={
 })
 
 
-# with app.app_context():
-#     db.drop_all()
-#     db.create_all()
-
 @login_manager.user_loader
 def user_loader(user_id):
     return db.session.get(User, user_id)
+
+
+def admin_required():
+    if not current_user.is_authenticated or not current_user.is_admin:
+        abort(403)
 
 
 @app.route("/sign_up/", methods=["GET", "POST"])
@@ -54,7 +53,6 @@ def sign_up():
             email=form.email.data or None,
             fullname=form.fullname.data or None
         )
-
         user.set_password(form.password.data)
 
         db.session.add(user)
@@ -109,7 +107,6 @@ def index():
 @login_required
 def reserve():
     form = ReservationForm()
-    menu = Menu.query.all()
 
     if form.validate_on_submit():
         reservation = Reservation(
@@ -120,13 +117,12 @@ def reserve():
 
         db.session.add(reservation)
         db.session.commit()
-
         cache.clear()
 
         flash("Стіл заброньовано.")
         return redirect(url_for("index"))
 
-    return render_template("reserve.html", form=form, menu=menu)
+    return render_template("reserve.html", form=form)
 
 
 @app.get("/add_to_cart/<menu_id>")
@@ -142,7 +138,7 @@ def add_to_cart(menu_id):
     cart[menu_id] = cart.get(menu_id, 0) + 1
     session["cart"] = cart
 
-    flash(f"➕ Додано: {item.name}", "success")
+    flash(f"➕ Додано: {item.name}")
     return redirect(url_for("cart"))
 
 
@@ -150,10 +146,6 @@ def add_to_cart(menu_id):
 @login_required
 def cart():
     cart = session.get("cart", {})
-
-    if not cart:
-        flash("🛒 Кошик порожній", "info")
-
     items = []
 
     for menu_id, qty in cart.items():
@@ -167,31 +159,24 @@ def cart():
 @app.get("/order/")
 @login_required
 def create_order():
-    cart: dict[str, int] = session.get("cart", {})
+    cart = session.get("cart", {})
 
     if not cart:
         flash("Кошик пустий")
         return redirect(url_for("index"))
 
-    order = Order(
-        user_id=current_user.id,
-        reservation_id=None
-    )
-
+    order = Order(user_id=current_user.id)
     db.session.add(order)
+    db.session.flush()  
 
     for menu_id, qty in cart.items():
         item = db.session.get(Menu, menu_id)
-
-        if not item:
-            continue
-
-        order_item = OrderItem(
-            menu_id=menu_id,
-            order_id=order.id,
-            quantity=qty
-        )
-        db.session.add(order_item)
+        if item:
+            db.session.add(OrderItem(
+                menu_id=menu_id,
+                order_id=order.id,
+                quantity=qty
+            ))
 
     db.session.commit()
 
@@ -200,10 +185,57 @@ def create_order():
 
     flash("Замовлення створено")
     return redirect(url_for("index"))
-    
+
+
+@app.get("/admin/delete_menu/<menu_id>")
+@login_required
+def delete_menu(menu_id):
+    admin_required()
+
+    item = db.session.get(Menu, menu_id)
+
+    if item:
+        db.session.delete(item)
+        db.session.commit()
+        flash("Видалено")
+
+    return redirect(url_for("index"))
+
+
+@app.route("/admin/add_menu", methods=["GET", "POST"])
+@login_required
+def add_menu():
+    admin_required()
+
+    if request.method == "POST":
+        item = Menu(
+            name=request.form.get("name"),
+            price=float(request.form.get("price")),
+            category=request.form.get("category"),
+            picture=request.form.get("picture")
+        )
+
+        db.session.add(item)
+        db.session.commit()
+
+        flash("Страву додано ✔")
+        return redirect(url_for("index"))
+
+    return render_template("admin_add.html")
+
 
 with app.app_context():
     db.create_all()
+
+    if not User.query.filter_by(username="admin").first():
+        admin = User(
+            username="admin",
+            email="admin@test.com",
+            fullname="Admin",
+            is_admin=True
+        )
+        admin.set_password("admin123")
+        db.session.add(admin)
 
     if not Menu.query.first():
         items = [
@@ -234,110 +266,6 @@ with app.app_context():
 
         db.session.add_all(items)
         db.session.commit()
-
-
-@app.get("/remove_from_cart/<menu_id>")
-@login_required
-def remove_from_cart(menu_id):
-    cart = session.get("cart", {})
-
-    if menu_id in cart:
-        cart[menu_id] -= 1
-        if cart[menu_id] <= 0:
-            del cart[menu_id]
-
-    session["cart"] = cart
-    return redirect(url_for("cart"))
-
-
-@app.get("/delete_from_cart/<menu_id>")
-@login_required
-def delete_from_cart(menu_id):
-    cart = session.get("cart", {})
-
-    if menu_id in cart:
-        del cart[menu_id]
-
-    session["cart"] = cart
-    flash("❌ Товар видалено", "info")
-
-    return redirect(url_for("cart"))
-
-with app.app_context():
-    db.create_all()
-
-    if not User.query.filter_by(username="admin").first():
-        admin = User(
-            username="admin",
-            email="admin@test.com",
-            fullname="Admin",
-            is_admin=True
-        )
-        admin.set_password("admin123")
-
-        db.session.add(admin)
-        db.session.commit()
-
-    if not Menu.query.first():
-        items = [
-            Menu(name="Піца Маргарита", price=180, picture="images/pizza.jpg", category="pizza"),
-            Menu(name="Піца Пепероні", price=210, picture="images/pizza1.jpg", category="pizza"),
-            Menu(name="Піца 4 сири", price=230, picture="images/pizza2.jpg", category="pizza"),
-        ]
-
-        db.session.add_all(items)
-        db.session.commit()
-
-
-def admin_required():
-    if not current_user.is_authenticated or not current_user.is_admin:
-        abort(403)
-
-
-@app.get("/admin/delete_menu/<menu_id>")
-@login_required
-def delete_menu(menu_id):
-    admin_required()
-
-    item = db.session.get(Menu, menu_id)
-
-    if item:
-        db.session.delete(item)
-        db.session.commit()
-        flash("Видалено")
-
-    return redirect(url_for("index"))
-
-
-@app.route("/admin/add_menu", methods=["GET", "POST"])
-@login_required
-def add_menu():
-    admin_required()
-
-    if request.method == "POST":
-        name = request.form.get("name")
-        price = request.form.get("price")
-        category = request.form.get("category")
-        picture = request.form.get("picture")
-
-        if not name or not price:
-            flash("Заповни всі поля")
-            return redirect(url_for("add_menu"))
-
-        item = Menu(
-            name=name,
-            price=float(price),
-            category=category,
-            picture=picture
-        )
-
-        db.session.add(item)
-        db.session.commit()
-
-        flash("Страву додано ✔")
-        return redirect(url_for("index"))
-
-    return render_template("admin_add.html")
 
 
 if __name__ == "__main__":
