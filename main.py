@@ -120,7 +120,7 @@ def reserve():
         cache.clear()
 
         flash("✅ Столик успішно заброньовано!")
-        return redirect(url_for("index"))
+        return redirect(url_for("reserve"))
 
     return render_template("reserve.html", form=form)
 
