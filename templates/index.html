@@ -1,103 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <div class="hero">
+        <div class="hero-overlay">
+            <h1 class="hero-title">Затишно, смачно, сучасно</h1>
+            <p class="hero-sub">Ласкаво просимо до нашого ресторану</p>
 
-<div class="layout">
-
-<aside class="sidebar">
-    <h2>Категорії</h2>
-
-    <a href="{{ url_for('index') }}"
-       class="{% if not category %}active{% endif %}">
-        🍽 Все меню
-    </a>
-
-    <a href="{{ url_for('index', category='pizza') }}"
-       class="{% if category == 'pizza' %}active{% endif %}">
-        🍕 Піца
-    </a>
-
-    <a href="{{ url_for('index', category='burger') }}"
-       class="{% if category == 'burger' %}active{% endif %}">
-        🍔 Бургери
-    </a>
-
-    <a href="{{ url_for('index', category='salad') }}"
-       class="{% if category == 'salad' %}active{% endif %}">
-        🥗 Салати
-    </a>
-
-    <a href="{{ url_for('index', category='snack') }}"
-       class="{% if category == 'snack' %}active{% endif %}">
-        🍟 Закуски
-    </a>
-
-    <a href="{{ url_for('index', category='drink') }}"
-       class="{% if category == 'drink' %}active{% endif %}">
-        🥤 Напої
-    </a>
-
-    <hr>
-
-    {% if current_user.is_authenticated %}
-        <a href="{{ url_for('reserve') }}">
-            🪑 Забронювати столик
-        </a>
-    {% endif %}
-
-    {% if current_user.is_authenticated and current_user.is_admin %}
-        <a href="{{ url_for('add_menu') }}">
-            ➕ Додати страву
-        </a>
-    {% endif %}
-
-</aside>
-
-<main class="menu">
-
-    {% if menu %}
-        {% for item in menu %}
-        <div class="card">
-
-            <img class="food-img"
-                 src="{{ url_for('static', filename=item.picture) }}"
-                 alt="{{ item.name }}">
-
-            <div class="info">
-                <h3>{{ item.name }}</h3>
-                <p>{{ item.price }} грн</p>
-
-                <a class="btn"
-                   href="{{ url_for('add_to_cart', menu_id=item.id) }}">
-                    ➕ Додати до кошика
-                </a>
-
-                {% if current_user.is_authenticated and current_user.is_admin %}
-                    <div class="admin-actions">
-
-                        <a href="{{ url_for('edit_menu', menu_id=item.id) }}"
-                           class="btn">
-                            ✏️ Редагувати
-                        </a>
-
-                        <a href="{{ url_for('delete_menu', menu_id=item.id) }}"
-                           class="btn-danger">
-                            ❌ Видалити
-                        </a>
-
-                    </div>
-                {% endif %}
-
-            </div>
-
+            <a href="{{ url_for('menu_page') }}" class="hero-btn">
+                Перейти до меню
+            </a>
         </div>
-        {% endfor %}
-    {% else %}
-        <p>😢 У цій категорії поки немає страв</p>
-    {% endif %}
-
-</main>
-
-</div>
-
+    </div>
 {% endblock %}

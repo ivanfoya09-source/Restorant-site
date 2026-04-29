@@ -93,14 +93,7 @@ def logout():
 @app.get("/")
 @login_required
 def index():
-    category = request.args.get("category")
-
-    if category:
-        menu = Menu.query.filter_by(category=category).all()
-    else:
-        menu = Menu.query.all()
-
-    return render_template("index.html", menu=menu, category=category)
+    return render_template("index.html")
 
 
 @app.route("/reserve/", methods=["GET", "POST"])
@@ -135,6 +128,9 @@ def add_to_cart(menu_id):
         return redirect(url_for("index"))
 
     cart = session.get("cart", {})
+
+    menu_id = str(menu_id)
+
     cart[menu_id] = cart.get(menu_id, 0) + 1
     session["cart"] = cart
 
@@ -187,19 +183,35 @@ def create_order():
     return redirect(url_for("index"))
 
 
-@app.get("/admin/delete_menu/<menu_id>")
+@app.get("/menu/")
+@login_required
+def menu_page():
+    category = request.args.get("category")
+
+    if category:
+        menu = Menu.query.filter_by(category=category).all()
+    else:
+        menu = Menu.query.all()
+
+    return render_template("menu.html", menu=menu, category=category)
+
+
+@app.route("/admin/delete_menu/<int:menu_id>", methods=["POST"])
 @login_required
 def delete_menu(menu_id):
     admin_required()
 
     item = db.session.get(Menu, menu_id)
 
-    if item:
-        db.session.delete(item)
-        db.session.commit()
-        flash("Видалено")
+    if not item:
+        flash("Страву не знайдено")
+        return redirect(url_for("menu_page"))
 
-    return redirect(url_for("index"))
+    db.session.delete(item)
+    db.session.commit()
+
+    flash("✅ Страву видалено")
+    return redirect(url_for("menu_page"))
 
 
 @app.route("/admin/add_menu", methods=["GET", "POST"])

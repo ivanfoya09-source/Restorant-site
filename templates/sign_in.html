@@ -1,24 +1,32 @@
 {% extends 'base.html' %}
 
+{% set show_nav = false %}
+
 {% block content %}
 
-<form method="POST">
-    {{ form.hidden_tag() }}
+{% endblock %}
+<div class="auth-page">
 
-    <h2>Вхід</h2>
+    <form method="POST" class="auth-card">
+        {{ form.hidden_tag() }}
 
-    <p>Логін</p>
-    {{ form.username }}
+        <h2>👋 Вхід</h2>
 
-    <p>Пароль</p>
-    {{ form.password }}
+        <p>Логін</p>
+        {{ form.username(class="auth-input") }}
 
-    {{ form.submit(class="btn") }}
+        <p>Пароль</p>
+        {{ form.password(class="auth-input") }}
 
-    <p>
-        Немає акаунта?
-        <a href="{{ url_for('sign_up') }}">Реєстрація</a>
-    </p>
-</form>
+        {{ form.submit(class="btn") }}
+
+        <p class="auth-link">
+            Немає акаунта?
+            <a href="{{ url_for('sign_up') }}">Реєстрація</a>
+        </p>
+
+    </form>
+
+</div>
 
 {% endblock %}

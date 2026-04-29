@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <h2>Категорії</h2>
+
+        <a href="{{ url_for('menu_page') }}"
+           class="{% if not category %}active{% endif %}">
+            🍽 Все меню
+        </a>
+
+        <a href="{{ url_for('menu_page', category='pizza') }}"
+           class="{% if category == 'pizza' %}active{% endif %}">
+            🍕 Піца
+        </a>
+
+        <a href="{{ url_for('menu_page', category='burger') }}"
+           class="{% if category == 'burger' %}active{% endif %}">
+            🍔 Бургери
+        </a>
+
+        <a href="{{ url_for('menu_page', category='salad') }}"
+           class="{% if category == 'salad' %}active{% endif %}">
+            🥗 Салати
+        </a>
+
+        <a href="{{ url_for('menu_page', category='snack') }}"
+           class="{% if category == 'snack' %}active{% endif %}">
+            🍟 Закуски
+        </a>
+
+        <a href="{{ url_for('menu_page', category='drink') }}"
+           class="{% if category == 'drink' %}active{% endif %}">
+            🥤 Напої
+        </a>
+
+        <hr>
+
+
+    </aside>
+
+    <main class="menu">
+
+        {% if menu %}
+            {% for item in menu %}
+            <div class="card">
+
+                <img class="food-img"
+                     src="{{ url_for('static', filename=item.picture) }}"
+                     alt="{{ item.name }}">
+
+                <div class="info">
+                    <h3>{{ item.name }}</h3>
+                    <p>{{ item.price }} грн</p>
+
+                    <a class="btn"
+                       href="{{ url_for('add_to_cart', menu_id=item.id) }}">
+                        ➕ Додати
+                    </a>
+
+                    {% if current_user.is_admin %}
+                        <div class="admin-actions">
+
+                            <a href="{{ url_for('edit_menu', menu_id=item.id) }}"
+                               class="btn">
+                                ✏️ Редагувати
+                            </a>
+
+                            <form action="{{ url_for('delete_menu', menu_id=item.id) }}"
+                                  method="POST"
+                                  onsubmit="return confirm('❗ Точно видалити цю страву?');"
+                                  style="display:inline;">
+
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                                <button type="submit" class="btn-danger">
+                                    ❌ Видалити
+                                </button>
+
+                            </form>
+
+                        </div>
+                    {% endif %}
+                </div>
+
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>😢 У цій категорії поки немає страв</p>
+        {% endif %}
+
+    </main>
+
+</div>
+
+{% endblock %}

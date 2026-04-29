@@ -1,30 +1,31 @@
 body {
+    margin: 0;
+    padding: 0;
     background: linear-gradient(135deg, #0f172a, #020617);
     color: #e2e8f0;
 }
 
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 32px;
-    background: rgba(15, 23, 42, 0.85);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+
+    background: rgba(15, 23, 42, 0.6);
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid #1e293b;
 }
 
 nav a {
-    padding: 12px 20px;
-    border-radius: 14px;
-    background: #1e293b;
-    color: #fff;
+    color: white;
+    text-decoration: none;
+    padding: 10px 14px;
+    border-radius: 10px;
     transition: 0.3s;
-    font-weight: 600;
 }
 
 nav a:hover {
-    background: #3b82f6;
-    transform: scale(1.05);
+    background: rgba(255,255,255,0.15);
 }
 
 .btn {
@@ -45,12 +46,8 @@ nav a:hover {
 }
 
 .card {
-    background: #020617;
-    border: 1px solid #1e293b;
-    border-radius: 14px;
-    overflow: hidden;
-    transition: 0.3s;
-    max-width: 320px;
+    min-width: 260px;
+    flex: 0 0 auto;
 }
 
 .card:hover {
@@ -84,9 +81,15 @@ nav a:hover {
 }
 
 .sidebar {
-    background: #020617;
-    border: 1px solid #1e293b;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    padding: 15px;
     border-radius: 12px;
+
+    background: #020617;
 }
 
 .sidebar a.active {
@@ -259,4 +262,161 @@ nav button:hover {
         opacity: 0;
         transform: translateX(60px);
     }
+}
+
+.hero {
+    height: 100vh;
+    padding-top: 80px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: url("/static/images/restaurant.jpg") center/cover no-repeat;
+}
+
+.hero-overlay {
+    text-align: center;
+    background: rgba(0,0,0,0.5);
+    padding: 40px;
+    border-radius: 20px;
+    animation: fadeIn 1s ease;
+}
+
+.hero-title {
+    font-size: 48px;
+    font-weight: 800;
+}
+
+.hero-sub {
+    margin-top: 10px;
+    font-size: 20px;
+    opacity: 0.8;
+}
+
+.hero-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 14px 26px;
+    background: linear-gradient(135deg, #3b82f6, #6366f1);
+    border-radius: 12px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.hero-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(59,130,246,0.4);
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.menu {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+
+    overflow-x: auto;
+    padding: 20px;
+
+    scroll-behavior: smooth;
+}
+
+
+@media (max-width: 1200px) {
+    .menu {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .menu {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .menu {
+        grid-template-columns: 1fr;
+    }
+}
+
+.layout {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    align-items: flex-start;
+}
+
+.nav-arrow {
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: #1e293b;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+    display: inline-block;
+    font-weight: 600;
+}
+
+.nav-arrow:hover {
+    background: #3b82f6;
+    transform: scale(1.1);
+}
+
+
+
+
+
+
+.auth-page {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-card {
+    width: 360px;
+    padding: 30px;
+
+    background: #111827;
+    border-radius: 16px;
+
+    border: 1px solid #1f2937;
+
+    text-align: center;
+    color: white;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 12px;
+
+    margin-bottom: 12px;
+
+    border-radius: 10px;
+
+    border: 1px solid #374151;
+    background: #0b1220;
+
+    color: white;
+}
+
+.auth-input:focus {
+    border-color: #3b82f6;
 }

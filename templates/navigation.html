@@ -1,23 +1,33 @@
 <nav>
-    <div class="nav-left">
+    <div class="nav-container">
+
         {% if current_user.is_authenticated %}
-            <a href="{{ url_for('index') }}">Меню</a>
-            <a href="{{ url_for('reserve') }}">Бронювання</a>
-            <a href="{{ url_for('cart') }}">🛒 Кошик</a>
-            <a href="{{ url_for('create_order') }}">Оформити замовлення</a>
-            <a href="{{ url_for('logout') }}">Вийти</a>
+
+            <div class="nav-left">
+                <a href="{{ url_for('index') }}">🏠 Головна</a>
+                <a href="{{ url_for('menu_page') }}">🍽 Меню</a>
+                <a href="{{ url_for('reserve') }}">🪑 Бронювання</a>
+            </div>
+
+            <div class="nav-right">
+                <a href="{{ url_for('cart') }}">🛒 Кошик</a>
+                <a href="{{ url_for('create_order') }}">📦 Оформити</a>
+
+                {% if current_user.is_admin %}
+                    <a href="{{ url_for('add_menu') }}">➕ Додати страву</a>
+                {% endif %}
+
+                <a href="{{ url_for('logout') }}">🚪 Вийти</a>
+            </div>
+
         {% else %}
-            <a href="{{ url_for('sign_in') }}">Увійти</a>
-            <a href="{{ url_for('sign_up') }}">Реєстрація</a>
+
+            <div class="nav-right">
+                <a href="{{ url_for('sign_in') }}">Увійти</a>
+                <a href="{{ url_for('sign_up') }}">Реєстрація</a>
+            </div>
+
         {% endif %}
 
-        {% if current_user.is_admin %}
-            <a href="{{ url_for('add_menu') }}">➕ Додати страву</a>
-        {% endif %}
-    </div>
-
-    <div class="nav-right">
-        <button onclick="history.back()" class="btn">⬅</button>
-        <button onclick="history.forward()" class="btn">➡</button>
     </div>
 </nav>
