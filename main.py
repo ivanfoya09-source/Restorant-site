@@ -4,10 +4,11 @@ from dotenv import load_dotenv
 from flask import Flask, flash, render_template, redirect, request, url_for, abort, session
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_caching import Cache
+from flask_wtf import CSRFProtect
+from flask_wtf.csrf import generate_csrf
 
 from models import db, User, Menu, Reservation, Order, OrderItem
 from forms import SignUpForm, SignInForm, ReservationForm
-
 
 load_dotenv()
 
@@ -17,6 +18,11 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
+csrf = CSRFProtect(app)
+
+@app.context_processor
+def inject_csrf():
+    return dict(csrf_token=generate_csrf)
 
 db.init_app(app)
 
@@ -86,6 +92,8 @@ def sign_in():
 @login_required
 def logout():
     logout_user()
+    session.clear()
+
     flash("Ви вийшли з акаунту.")
     return redirect(url_for("sign_in"))
 
@@ -135,7 +143,7 @@ def add_to_cart(menu_id):
     session["cart"] = cart
 
     flash(f"➕ Додано: {item.name}")
-    return redirect(url_for("cart"))
+    return redirect(url_for("menu_page"))
 
 
 @app.get("/cart/")
@@ -196,7 +204,7 @@ def menu_page():
     return render_template("menu.html", menu=menu, category=category)
 
 
-@app.route("/admin/delete_menu/<int:menu_id>", methods=["POST"])
+@app.route("/admin/delete_menu/<menu_id>", methods=["POST"])
 @login_required
 def delete_menu(menu_id):
     admin_required()
