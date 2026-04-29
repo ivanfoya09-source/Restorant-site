@@ -5,7 +5,6 @@ body {
     color: #e2e8f0;
 }
 
-/* ================= NAV ================= */
 
 nav {
     position: fixed;
@@ -48,7 +47,6 @@ nav a:hover {
     transform: scale(1.05);
 }
 
-/* ================= BUTTONS ================= */
 
 .btn {
     padding: 14px 22px;
@@ -68,7 +66,6 @@ nav a:hover {
     transform: scale(1.08);
 }
 
-/* ================= MENU GRID (4 в ряд) ================= */
 
 .layout {
     display: flex;
@@ -85,7 +82,6 @@ nav a:hover {
     flex: 1;
 }
 
-/* ================= CARD ================= */
 
 .card {
     background: #0b1220;
@@ -110,7 +106,6 @@ nav a:hover {
     padding: 12px;
 }
 
-/* ================= SIDEBAR ================= */
 
 .sidebar {
     width: 220px;
@@ -126,8 +121,6 @@ nav a:hover {
 .sidebar a.active {
     background: #3b82f6;
 }
-
-/* ================= AUTH ================= */
 
 .auth-page {
     height: 100vh;
@@ -154,7 +147,6 @@ nav a:hover {
     color: white;
 }
 
-/* ================= FLASH ================= */
 
 .flash-container {
     position: fixed;
@@ -173,7 +165,6 @@ nav a:hover {
     border-radius: 14px;
 }
 
-/* ================= HERO ================= */
 
 .hero {
     height: 100vh;
@@ -212,7 +203,6 @@ nav a:hover {
     text-decoration: none;
 }
 
-/* ================= RESPONSIVE ================= */
 
 @media (max-width: 1200px) {
     .menu {

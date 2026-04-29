@@ -5,7 +5,6 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, Optional
 from wtforms import HiddenField
 
-
 class SignInForm(FlaskForm):
     username = StringField(validators=[DataRequired()])
     password = PasswordField(validators=[DataRequired()])
