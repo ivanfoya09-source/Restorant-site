@@ -13,55 +13,76 @@
     <a href="/logout">Вийти</a>
 </nav>
 
-<div class="cart-container">
+<div class="cart-page">
 
-    <h2 class="cart-title">🛒 Ваш кошик</h2>
+    <div class="cart-box">
 
-    {% if items %}
+        <h2 class="cart-title">🛒 Ваш кошик</h2>
 
-        {% set total = namespace(value=0) %}
+        {% if items %}
 
-        {% for item, qty in items %}
-            {% set total.value = total.value + (item.price * qty) %}
+            {% set total = namespace(value=0) %}
 
-            <div class="cart-item">
+            <div class="cart-list">
 
-                <div>
-                    <div class="cart-item-name">{{ item.name }}</div>
-                    <div class="cart-item-price">{{ item.price }} грн</div>
+                {% for item, qty in items %}
+                    {% set total.value = total.value + (item.price * qty) %}
+
+                    <div class="cart-item">
+
+                        <!-- INFO -->
+                        <div class="cart-info">
+                            <div class="cart-name">{{ item.name }}</div>
+                            <div class="cart-price">{{ item.price }} грн</div>
+                        </div>
+
+                        <!-- CONTROLS -->
+                        <div class="cart-controls">
+
+                            <a href="/remove_from_cart/{{ item.id }}" class="cart-btn">➖</a>
+
+                            <span class="cart-qty">x{{ qty }}</span>
+
+                            <a href="/add_to_cart/{{ item.id }}" class="cart-btn">➕</a>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+            <!-- FOOTER -->
+            <div class="cart-footer">
+
+                <div class="cart-total">
+                    💰 Загальна сума: <b>{{ total.value }} грн</b>
                 </div>
 
-                <div class="cart-qty">x{{ qty }}</div>
+                <div class="cart-buttons">
 
-                <div>
-                    <a href="/remove_from_cart/{{ item.id }}">➖</a>
-                    <a href="/add_to_cart/{{ item.id }}">➕</a>
+                    <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                        ➕ Додати ще товар
+                    </a>
+
+                    <a href="{{ url_for('create_order') }}" class="btn btn-primary">
+                        Оформити замовлення
+                    </a>
+
                 </div>
 
             </div>
-        {% endfor %}
 
-        <div class="cart-total">
-    💰 Загальна сума: <b>{{ total.value }} грн</b>
+        {% else %}
 
-    <div class="cart-buttons">
-        <a href="{{ url_for('index') }}" class="btn-secondary">
-            ➕ Додати ще товар
-        </a>
+            <div class="cart-empty">
+                🛒 Кошик порожній
+            </div>
 
-        <a href="{{ url_for('create_order') }}" class="btn-order">
-            Оформити замовлення
-        </a>
+        {% endif %}
+
     </div>
-</div>
-
-    {% else %}
-
-        <div class="cart-total">
-            🛒 Кошик порожній
-        </div>
-
-    {% endif %}
 
 </div>
 

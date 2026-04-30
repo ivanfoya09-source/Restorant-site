@@ -2,32 +2,43 @@
 
 {% block content %}
 
-<div class="reserve-box">
+<div class="reserve-page">
 
-    <h2>🍽 Бронювання столу</h2>
+    <div class="reserve-card">
 
-    <form method="POST">
-        {{ form.hidden_tag() }}
+        <h2>🍽 Бронювання столу</h2>
+        <p class="reserve-sub">Оберіть дату, час та столик</p>
 
-        <p>Дата і час</p>
-        {{ form.time(type="datetime-local", required=True) }}
+        <form method="POST">
+            {{ form.hidden_tag() }}
 
-        {{ form.table(id="table-input") }}
+            <!-- ЧАС -->
+            <label>Дата і час</label>
+            {{ form.time(type="datetime-local", class="reserve-input", required=True) }}
 
-        <p>Оберіть столик</p>
+            <!-- hidden -->
+            {{ form.table(id="table-input") }}
 
-        <div class="restaurant-map">
-            {% for i in range(1, 13) %}
-                <div class="table" onclick="selectTable('{{ i }}', this)">
-                    {{ i }}
-                </div>
-            {% endfor %}
-        </div>
+            <!-- СТОЛИКИ -->
+            <label>Оберіть столик</label>
 
-        <p id="selected-table-text">Не обрано</p>
+            <div class="restaurant-map">
+                {% for i in range(1, 13) %}
+                    <div class="table" onclick="selectTable('{{ i }}', this)">
+                        {{ i }}
+                    </div>
+                {% endfor %}
+            </div>
 
-        <button type="submit" class="btn">Забронювати</button>
-    </form>
+            <p id="selected-table-text" class="selected-text">Не обрано</p>
+
+            <button type="submit" class="btn reserve-btn">
+                ✅ Забронювати
+            </button>
+
+        </form>
+
+    </div>
 
 </div>
 
