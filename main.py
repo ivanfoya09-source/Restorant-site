@@ -143,7 +143,7 @@ def add_to_cart(menu_id):
     session["cart"] = cart
 
     flash(f"➕ Додано: {item.name}")
-    return redirect(url_for("menu_page"))
+    return redirect(url_for("cart"))
 
 
 @app.get("/remove_from_cart/<menu_id>")
