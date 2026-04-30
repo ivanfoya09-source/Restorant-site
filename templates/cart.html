@@ -8,9 +8,9 @@
 <body>
 
 <nav>
-    <a href="/">Меню</a>
-    <a href="/cart">Кошик</a>
-    <a href="/logout">Вийти</a>
+    <a href="{{ url_for('index') }}">Меню</a>
+    <a href="{{ url_for('cart') }}">Кошик</a>
+    <a href="{{ url_for('logout') }}">Вийти</a>
 </nav>
 
 <div class="cart-page">
@@ -30,20 +30,22 @@
 
                     <div class="cart-item">
 
-                        <!-- INFO -->
                         <div class="cart-info">
                             <div class="cart-name">{{ item.name }}</div>
                             <div class="cart-price">{{ item.price }} грн</div>
                         </div>
 
-                        <!-- CONTROLS -->
                         <div class="cart-controls">
 
-                            <a href="/remove_from_cart/{{ item.id }}" class="cart-btn">➖</a>
+                            <a href="{{ url_for('remove_from_cart', menu_id=item.id) }}" class="cart-btn">
+                                ➖
+                            </a>
 
                             <span class="cart-qty">x{{ qty }}</span>
 
-                            <a href="/add_to_cart/{{ item.id }}" class="cart-btn">➕</a>
+                            <a href="{{ url_for('add_to_cart', menu_id=item.id) }}" class="cart-btn">
+                                ➕
+                            </a>
 
                         </div>
 
@@ -53,7 +55,6 @@
 
             </div>
 
-            <!-- FOOTER -->
             <div class="cart-footer">
 
                 <div class="cart-total">
@@ -62,11 +63,11 @@
 
                 <div class="cart-buttons">
 
-                    <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                    <a href="{{ url_for('menu_page') }}" class="btn">
                         ➕ Додати ще товар
                     </a>
 
-                    <a href="{{ url_for('create_order') }}" class="btn btn-primary">
+                    <a href="{{ url_for('create_order') }}" class="btn">
                         Оформити замовлення
                     </a>
 

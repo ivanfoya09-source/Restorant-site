@@ -146,6 +146,24 @@ def add_to_cart(menu_id):
     return redirect(url_for("menu_page"))
 
 
+@app.get("/remove_from_cart/<menu_id>")
+@login_required
+def remove_from_cart(menu_id):
+    cart = session.get("cart", {})
+
+    menu_id = str(menu_id)
+
+    if menu_id in cart:
+        if cart[menu_id] > 1:
+            cart[menu_id] -= 1
+        else:
+            del cart[menu_id]
+
+    session["cart"] = cart
+
+    return redirect(url_for("cart"))
+
+
 @app.get("/cart/")
 @login_required
 def cart():
