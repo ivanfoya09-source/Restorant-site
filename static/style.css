@@ -15,7 +15,6 @@
     --yellow: #f59e0b;
 }
 
-/* ===== BASE ===== */
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
@@ -23,7 +22,6 @@ body {
     color: var(--text);
 }
 
-/* ===== NAVBAR ===== */
 nav {
     position: fixed;
     top: 0;
@@ -61,7 +59,6 @@ nav a:hover {
     color: white;
 }
 
-/* ===== BUTTONS ===== */
 .btn {
     padding: 12px 18px;
     border-radius: 12px;
@@ -85,7 +82,6 @@ nav a:hover {
     transform: scale(0.97);
 }
 
-/* ===== ADMIN BUTTONS FIX ===== */
 .edit-btn {
     background: linear-gradient(135deg, var(--yellow), #fbbf24);
 }
@@ -94,7 +90,6 @@ nav a:hover {
     background: linear-gradient(135deg, var(--red), #dc2626);
 }
 
-/* ===== LAYOUT ===== */
 .layout {
     display: flex;
     gap: 20px;
@@ -102,7 +97,6 @@ nav a:hover {
     margin-top: 90px;
 }
 
-/* ===== MENU ===== */
 .menu {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -110,7 +104,6 @@ nav a:hover {
     flex: 1;
 }
 
-/* ===== CARD ===== */
 .card {
     background: var(--card);
     border-radius: 16px;
@@ -139,7 +132,6 @@ nav a:hover {
     padding: 15px;
 }
 
-/* 🔥 ВАЖЛИВО: ФІКС КНОПОК */
 .card-actions {
     display: flex;
     flex-direction: column;
@@ -154,7 +146,6 @@ nav a:hover {
     display: block;
 }
 
-/* ===== SIDEBAR ===== */
 .sidebar {
     width: 230px;
     padding: 15px;
@@ -182,7 +173,6 @@ nav a:hover {
     color: white;
 }
 
-/* ===== FLASH (TOAST FIX) ===== */
 .flash-container {
     position: fixed;
     top: 20px;
@@ -224,7 +214,6 @@ nav a:hover {
     }
 }
 
-/* ===== HERO ===== */
 .hero {
     height: 100vh;
     display: flex;
@@ -249,7 +238,6 @@ nav a:hover {
     color: var(--text-muted);
 }
 
-/* ===== RESERVE ===== */
 .restaurant-map {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -270,7 +258,6 @@ nav a:hover {
     background: var(--primary);
 }
 
-/* ===== CART FIX (ВАЖЛИВО) ===== */
 .cart-buttons {
     display: flex;
     flex-direction: column;
@@ -285,7 +272,6 @@ nav a:hover {
     text-decoration: none;
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 1200px) {
     .menu { grid-template-columns: repeat(3, 1fr); }
 }
@@ -309,7 +295,6 @@ nav a:hover {
 }
 
 
-/* ===== AUTH (LOGIN / REGISTER CENTER) ===== */
 .auth-page {
     min-height: 100vh;
     display: flex;
@@ -320,7 +305,6 @@ nav a:hover {
     background: radial-gradient(circle at top, #0b1220, #000000);
 }
 
-/* карточка */
 .auth-card {
     width: 380px;
     padding: 32px;
@@ -336,13 +320,11 @@ nav a:hover {
     animation: fadeUp 0.4s ease;
 }
 
-/* заголовок */
 .auth-card h2 {
     margin-bottom: 20px;
     font-size: 26px;
 }
 
-/* інпути */
 .auth-input {
     width: 100%;
     padding: 12px 14px;
@@ -363,13 +345,11 @@ nav a:hover {
     box-shadow: 0 0 0 3px rgba(59,130,246,0.25);
 }
 
-/* кнопка */
 .auth-card .btn {
     width: 100%;
     margin-top: 8px;
 }
 
-/* текст під формою */
 .auth-card a {
     display: block;
     margin-top: 14px;
@@ -382,7 +362,6 @@ nav a:hover {
     color: var(--primary);
 }
 
-/* анімація появи */
 @keyframes fadeUp {
     from {
         opacity: 0;
@@ -395,7 +374,6 @@ nav a:hover {
 }
 
 
-/* ===== CART PAGE CENTER ===== */
 .cart-page {
     min-height: 100vh;
     display: flex;
@@ -405,7 +383,7 @@ nav a:hover {
     padding: 20px;
 }
 
-/* ОСНОВНИЙ БЛОК */
+
 .cart-box {
     width: 700px;
     max-width: 100%;
@@ -421,20 +399,20 @@ nav a:hover {
     animation: fadeUp 0.4s ease;
 }
 
-/* TITLE */
+
 .cart-title {
     font-size: 28px;
     margin-bottom: 20px;
 }
 
-/* LIST */
+
 .cart-list {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-/* ITEM */
+
 .cart-item {
     display: flex;
     justify-content: space-between;
@@ -447,7 +425,7 @@ nav a:hover {
     border: 1px solid #1f2937;
 }
 
-/* INFO */
+
 .cart-name {
     font-weight: 600;
     font-size: 16px;
@@ -458,7 +436,7 @@ nav a:hover {
     font-size: 14px;
 }
 
-/* CONTROLS */
+
 .cart-controls {
     display: flex;
     align-items: center;
@@ -484,7 +462,7 @@ nav a:hover {
     font-weight: 600;
 }
 
-/* FOOTER */
+
 .cart-footer {
     margin-top: 25px;
     border-top: 1px solid var(--border);
@@ -496,7 +474,6 @@ nav a:hover {
     margin-bottom: 15px;
 }
 
-/* EMPTY */
 .cart-empty {
     text-align: center;
     font-size: 18px;
