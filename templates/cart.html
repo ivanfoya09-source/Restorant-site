@@ -37,13 +37,17 @@
 
                         <div class="cart-controls">
 
-                            <a href="{{ url_for('remove_from_cart', menu_id=item.id) }}" class="cart-btn">
+                            <!-- ➖ -->
+                            <a href="{{ url_for('remove_from_cart', menu_id=item.id) }}"
+                               class="cart-btn remove-btn">
                                 ➖
                             </a>
 
                             <span class="cart-qty">x{{ qty }}</span>
 
-                            <a href="{{ url_for('add_to_cart', menu_id=item.id) }}" class="cart-btn">
+                            <!-- ➕ -->
+                            <a href="{{ url_for('add_to_cart', menu_id=item.id) }}"
+                               class="cart-btn add-btn">
                                 ➕
                             </a>
 
@@ -64,7 +68,7 @@
                 <div class="cart-buttons">
 
                     <a href="{{ url_for('menu_page') }}" class="btn">
-                        ➕ Додати ще товар
+                        🍽 Обрати ще страви
                     </a>
 
                     <a href="{{ url_for('create_order') }}" class="btn">
@@ -86,6 +90,38 @@
     </div>
 
 </div>
+
+<script>
+document.querySelectorAll('.remove-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const item = this.closest('.cart-item');
+        const url = this.getAttribute('href');
+
+        item.classList.add('removing');
+
+        setTimeout(() => {
+            window.location.href = url;
+        }, 300);
+    });
+});
+
+document.querySelectorAll('.add-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const item = this.closest('.cart-item');
+        const url = this.getAttribute('href');
+
+        item.classList.add('adding');
+
+        setTimeout(() => {
+            window.location.href = url;
+        }, 200);
+    });
+});
+</script>
 
 </body>
 </html>

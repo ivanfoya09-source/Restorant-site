@@ -156,8 +156,10 @@ def remove_from_cart(menu_id):
     if menu_id in cart:
         if cart[menu_id] > 1:
             cart[menu_id] -= 1
+            flash("Кількість зменшено ➖")
         else:
             del cart[menu_id]
+            flash("Страву видалено 🗑️")
 
     session["cart"] = cart
 
