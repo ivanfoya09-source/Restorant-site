@@ -12,14 +12,11 @@
         <form method="POST">
             {{ form.hidden_tag() }}
 
-            <!-- ЧАС -->
             <label>Дата і час</label>
             {{ form.time(type="datetime-local", class="reserve-input", required=True) }}
 
-            <!-- hidden -->
             {{ form.table(id="table-input") }}
 
-            <!-- СТОЛИКИ -->
             <label>Оберіть столик</label>
 
             <div class="restaurant-map">
